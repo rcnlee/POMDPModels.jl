@@ -6,7 +6,7 @@ mutable struct MountainCar <: MDP{Tuple{Float64,Float64},Float64}
   cost::Float64 # reward at each state not at the goal (should be a negative number)
   jackpot::Float64 # reward at the top
 end
-MountainCar(;discount::Float64=0.99,cost::Float64=-1., jackpot::Float64=0.0) = MountainCar(discount,cost,jackpot)
+MountainCar(;discount::Float64=0.99,cost::Float64=-1., jackpot::Float64=100.0) = MountainCar(discount,cost,jackpot)
 
 actions(::MountainCar) = [-1., 0., 1.]
 n_actions(mc::MountainCar) = 3
@@ -15,6 +15,7 @@ reward(mc::MountainCar,
               s::Tuple{Float64,Float64},
               a::Float64,
               sp::Tuple{Float64,Float64}) = isterminal(mc,sp) ? mc.jackpot : mc.cost
+              #sp::Tuple{Float64,Float64}) = isterminal(mc,sp) ? mc.jackpot : -norm(s[1]-0.5) 
 
 function initial_state(mc::MountainCar, ::AbstractRNG)
   sp = (-0.5,0.,)

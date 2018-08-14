@@ -44,7 +44,9 @@ function reward(ip::InvertedPendulum,
               s::Tuple{Float64,Float64},
               a::Float64,
               sp::Tuple{Float64,Float64})
-    return isterminal(ip, sp) ? ip.cost : 0.0
+    #return isterminal(ip, sp) ? ip.cost : 0.0
+    return isterminal(ip, sp) ? ip.cost : 0.1
+    #return isterminal(ip, sp) ? ip.cost : -norm(sp[1]) 
 end
 
 discount(ip::InvertedPendulum) = ip.discount

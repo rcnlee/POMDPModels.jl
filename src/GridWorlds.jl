@@ -170,10 +170,10 @@ function transition(mdp::GridWorld, state::GridWorldState, action::Symbol)
 	y = state.y
 
     neighbors = MVector(
-        GridWorldState(x+1, y, false), # right
-        GridWorldState(x-1, y, false), # left
-        GridWorldState(x, y-1, false), # down
         GridWorldState(x, y+1, false), # up
+        GridWorldState(x, y-1, false), # down
+        GridWorldState(x-1, y, false), # left
+        GridWorldState(x+1, y, false), # right
         GridWorldState(x, y, false)    # stay
        )
 
@@ -198,13 +198,13 @@ function transition(mdp::GridWorld, state::GridWorldState, action::Symbol)
     # The following match the definition of neighbors
     # given above
     target_neighbor = 0
-    if a == :right
+    if a == :up
         target_neighbor = 1
-	elseif a == :left
-        target_neighbor = 2
 	elseif a == :down
+        target_neighbor = 2
+	elseif a == :left
         target_neighbor = 3
-	elseif a == :up
+	elseif a == :right
         target_neighbor = 4
 	end
     # @assert target_neighbor > 0
